@@ -5,7 +5,7 @@ using UnityEngine;
 public class AreaEntrance : MonoBehaviour
 {
 	public string transitionName;
-	
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +13,13 @@ public class AreaEntrance : MonoBehaviour
 		{
 			PlayerController.instance.transform.position = transform.position;
 		}
+
+        UIFade.instance.FadeFromBlack();
     }
 
     // Update is called once per frame
     void Update()
     {
-         
+
     }
 }
