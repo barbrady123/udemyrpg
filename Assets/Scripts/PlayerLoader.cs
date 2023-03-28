@@ -11,7 +11,7 @@ public class PlayerLoader : MonoBehaviour
     {
         if (PlayerController.instance == null)
 		{
-			Instantiate(player);
+			Instantiate(player);            
 		}
     }
 
