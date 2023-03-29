@@ -17,15 +17,20 @@ public class UIFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // instance = this;
+        // DontDestroyOnLoad(gameObject);
+
+        // I think we should only need this while we have a static version existing in the scene for development...
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
