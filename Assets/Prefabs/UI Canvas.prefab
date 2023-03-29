@@ -191,4 +191,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeScreen: {fileID: 3462218675610773541}
-  fadeSpeed: 1
+  fadeSpeed: 3
