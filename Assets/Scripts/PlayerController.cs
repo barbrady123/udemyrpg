@@ -16,6 +16,15 @@ public class PlayerController : MonoBehaviour
 	private Vector3 bottomLeftLimit;
 	private Vector3 topRightLimit;
 
+	public bool canMove = true;
+
+	public string playerName = Global.Labels.DefaultPlayerDisplay;
+
+	private static readonly int idMoveX = Animator.StringToHash("moveX");
+	private static readonly int idMoveY = Animator.StringToHash("moveY");
+	private static readonly int idLastMoveX = Animator.StringToHash("lastMoveX");
+	private static readonly int idLastMoveY = Animator.StringToHash("lastMoveY");
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,19 +43,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		float rawX = Input.GetAxisRaw("Horizontal");
-		float rawY = Input.GetAxisRaw("Vertical");
+		float rawX = Input.GetAxisRaw(Global.Inputs.AxisHorizontal);
+		float rawY = Input.GetAxisRaw(Global.Inputs.AxisVertical);
 
-        theRB.velocity = new Vector2(rawX, rawY) * moveSpeed;
-
-		myAnim.SetFloat("moveX", theRB.velocity.x);
-		myAnim.SetFloat("moveY", theRB.velocity.y);
-
-		if ((rawX != 0) || (rawY != 0))
+		if (canMove)
 		{
-			myAnim.SetFloat("lastMoveX", rawX);
-			myAnim.SetFloat("lastMoveY", rawY);
+			var newVelocity = 
+				new Vector2(rawX, rawY) 
+				* moveSpeed 
+				* (Input.GetKey(KeyCode.LeftShift) ? Global.Physics.RunSpeedModifier : 1.0f);
+
+	        theRB.velocity = newVelocity;
+
+			if ((rawX != 0) || (rawY != 0))
+			{
+				myAnim.SetFloat(idLastMoveX, rawX);
+				myAnim.SetFloat(idLastMoveY, rawY);
+			}
 		}
+		else
+		{
+			theRB.velocity = Vector2.zero;
+		}
+
+		myAnim.SetFloat(idMoveX, theRB.velocity.x);
+		myAnim.SetFloat(idMoveY, theRB.velocity.y);
 
         // keep the player inside the bounds
         transform.position = new Vector3(

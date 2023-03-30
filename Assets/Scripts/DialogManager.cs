@@ -1,5 +1,8 @@
+using Mono.CompilerServices.SymbolWriter;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +20,8 @@ public class DialogManager : MonoBehaviour
     public static DialogManager instance;
     private bool justStarted;
 
+    public string currentName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +36,7 @@ public class DialogManager : MonoBehaviour
     {
         if (dialogBox.activeInHierarchy)
         {
-            if (Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp(Global.Inputs.Fire1))
             {
                 if (!justStarted)
                 {
@@ -40,10 +45,11 @@ public class DialogManager : MonoBehaviour
                     if (currentLine >= dialogLines.Length)
                     {
                         dialogBox.SetActive(false);
+                        PlayerController.instance.canMove = true;
                     }
                     else
                     {
-                        dialogText.text = dialogLines[currentLine];
+                        SetText(dialogLines[currentLine]);
                     }
                 }
                 else
@@ -54,15 +60,64 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void ShowDialog(string[] newLines)
+    public void ShowDialog(string[] newLines, string name)
     {
         dialogLines = newLines;
+        currentName = name;
 
         currentLine = 0;
 
-        dialogText.text = dialogLines[0];
+        SetText(dialogLines[currentLine], true);
         dialogBox.SetActive(true);
 
         justStarted = true;
+
+        PlayerController.instance.canMove = false;
+    }
+
+    private void SetText(string line, bool resetSpeaker = false)
+    {
+        if (resetSpeaker)
+        {
+            nameText.color = GetColor();
+            nameText.text = GetName();
+        }
+
+        var parts = line.Split(':');
+
+        bool showName = true;
+        
+        if (parts.Length > 1)
+        {
+            showName = parts[0] != Global.Labels.NoChat;
+            nameBox.SetActive(showName);
+
+            nameText.color = GetColor(parts[0]);
+            nameText.text = GetName(parts[0]);
+        }
+
+        dialogText.text = parts.Last();
+        dialogText.alignment = showName ? TextAnchor.UpperLeft : TextAnchor.MiddleCenter;
+    }
+
+    private Color GetColor(string token = null)
+    {
+        return token switch
+        {
+            Global.Labels.NPCChat => Global.Colors.NPCName,
+            Global.Labels.PlayerChat => Global.Colors.PlayerName,
+            _ => Global.Colors.Default,
+        };
+    }
+
+    private string GetName(string token = null)
+    {
+        return token switch
+        {
+            Global.Labels.NPCChat => currentName,
+            Global.Labels.PlayerChat => PlayerController.instance.playerName,
+            null => Global.Labels.DefaultNPCDisplay,
+            _ => token,
+        };
     }
 }
