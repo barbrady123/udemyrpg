@@ -21,6 +21,7 @@ public class UIFade : MonoBehaviour
         // DontDestroyOnLoad(gameObject);
 
         // I think we should only need this while we have a static version existing in the scene for development...
+        // Also why are we tracking this in UIFade instead of the top-level canvas?
         if (instance == null)
         {
             instance = this;

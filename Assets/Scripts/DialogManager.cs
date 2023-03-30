@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviour
     public GameObject nameBox;
     public GameObject dialogBox;
 
-    public string[]  dialogLines;
+    public string[] dialogLines;
 
     public int currentLine;
 
@@ -20,7 +20,10 @@ public class DialogManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
