@@ -8,10 +8,21 @@ public class GameManager : MonoBehaviour
 
     public CharStats[] playerStats;
 
+    public bool gameMenuOpen;
+    public bool dialogActive;
+    public bool fadingBetweenAreas;
+
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
 
         DontDestroyOnLoad(gameObject);
     }
@@ -19,6 +30,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        PlayerController.instance.canMove = !(gameMenuOpen || dialogActive || fadingBetweenAreas);
     }
+
+    public bool CanOpenMenu() => !(dialogActive || fadingBetweenAreas);
 }

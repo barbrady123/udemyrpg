@@ -39,6 +39,8 @@ public class AreaExit : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
+			GameManager.instance.fadingBetweenAreas = true;
+
 			shouldLoadAfterFade = true;
 			UIFade.instance.FadeToBlack();
 

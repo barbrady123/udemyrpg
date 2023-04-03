@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
 
 	public bool canMove = true;
 
-	public string playerName = Global.Labels.DefaultPlayerDisplay;
-
 	private static readonly int idMoveX = Animator.StringToHash("moveX");
 	private static readonly int idMoveY = Animator.StringToHash("moveY");
 	private static readonly int idLastMoveX = Animator.StringToHash("lastMoveX");

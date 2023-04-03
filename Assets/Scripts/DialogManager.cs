@@ -20,6 +20,8 @@ public class DialogManager : MonoBehaviour
     public static DialogManager instance;
     private bool justStarted;
 
+    public CharStats firstCharStats;
+
     public string currentName;
 
     // Start is called before the first frame update
@@ -29,6 +31,12 @@ public class DialogManager : MonoBehaviour
         {
             instance = this;
         }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -45,7 +53,7 @@ public class DialogManager : MonoBehaviour
                     if (currentLine >= dialogLines.Length)
                     {
                         dialogBox.SetActive(false);
-                        PlayerController.instance.canMove = true;
+                        GameManager.instance.dialogActive = false;
                     }
                     else
                     {
@@ -72,7 +80,7 @@ public class DialogManager : MonoBehaviour
 
         justStarted = true;
 
-        PlayerController.instance.canMove = false;
+        GameManager.instance.dialogActive = true;
     }
 
     private void SetText(string line, bool resetSpeaker = false)
@@ -115,7 +123,7 @@ public class DialogManager : MonoBehaviour
         return token switch
         {
             Global.Labels.NPCChat => currentName,
-            Global.Labels.PlayerChat => PlayerController.instance.playerName,
+            Global.Labels.PlayerChat => firstCharStats.charName,
             null => Global.Labels.DefaultNPCDisplay,
             _ => token,
         };

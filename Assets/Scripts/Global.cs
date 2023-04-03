@@ -21,7 +21,7 @@ public static class Global
 
         public const string NoChat = "--";
 
-        public const string DefaultPlayerDisplay = "Player";
+        public const string DefaultCharacterName = "Player";
 
         public const string DefaultNPCDisplay = "???";
     }
@@ -33,6 +33,8 @@ public static class Global
         public const string AxisVertical = "Vertical";
 
         public const string Fire1 = "Fire1";
+
+        public const string Fire2 = "Fire2";
     }
 
     public static class Physics

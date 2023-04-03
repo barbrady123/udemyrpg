@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CharStats : MonoBehaviour
 {
+	public string charName = Global.Labels.DefaultCharacterName;
+
     public int playerLevel = 1;
     public int currentXP;
     public int[] xpToNextLevel;
@@ -31,11 +33,11 @@ public class CharStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xpToNextLevel = new int[maxLevel];
+        xpToNextLevel = new int[maxLevel + 1];
         xpToNextLevel[0] = 0;
         int lastLevel = 0;
 
-        for (int i = 1; i < maxLevel; i++)
+        for (int i = 1; i <= maxLevel; i++)
         {
             int nextXP = Convert.ToInt32(baseXP * Math.Pow(1.05, i - 1));
             lastLevel = xpToNextLevel[i] = lastLevel + nextXP;

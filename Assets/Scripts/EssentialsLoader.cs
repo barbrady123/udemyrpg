@@ -6,6 +6,7 @@ public class EssentialsLoader : MonoBehaviour
 {
     public GameObject UIScreen;
     public GameObject player;
+    public GameObject gameManager;
 
     // Awake is called when the script is first loaded (prior to Start)
     private void Awake()
@@ -18,6 +19,11 @@ public class EssentialsLoader : MonoBehaviour
         if (PlayerController.instance == null)
         {
             Instantiate(player);
+        }
+
+        if (GameManager.instance == null)
+        {
+            Instantiate(gameManager);
         }
     }
 
