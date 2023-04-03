@@ -24,6 +24,10 @@ public static class Global
         public const string DefaultCharacterName = "Player";
 
         public const string DefaultNPCDisplay = "???";
+
+        public const string DefaultWeaponDisplay = "None";
+
+        public const string DefaultArmorDisplay = "None";
     }
 
     public static class Inputs
