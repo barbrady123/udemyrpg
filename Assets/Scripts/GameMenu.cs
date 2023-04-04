@@ -29,13 +29,31 @@ public class GameMenu : MonoBehaviour
     public Text statusArmorEq;
     public Text statusArmorPower;
     public Text statusXP;
-
     public Image statusImage;
+
+    public ItemButton[] itemButtons;
+
+    public string selectedItem;
+    public Item activeItem;
+    public Text itemName;
+    public Text itemDescription;
+    public Text useButtonText;
+
+    public static GameMenu instance;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
 
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -128,5 +146,37 @@ public class GameMenu : MonoBehaviour
         statusArmorPower.text = playerStats[selected].armorPower.ToString();
         statusXP.text = $"{playerStats[selected].currentXP} / {playerStats[selected].xpToNextLevel[playerStats[selected].playerLevel]}";
         statusImage.sprite = playerStats[selected].charImage;
+    }
+
+    public void ShowItems()
+    {
+        GameManager.instance.SortItems();
+
+        for (int x = 0; x < itemButtons.Length; x++)
+        {
+            itemButtons[x].buttonValue = x;
+
+            if (GameManager.instance.itemsHeld[x] != "")
+            {
+                itemButtons[x].buttonImage.gameObject.SetActive(true);
+                itemButtons[x].buttonImage.sprite = GameManager.instance.GetItemDetails(GameManager.instance.itemsHeld[x]).itemSprite;
+                itemButtons[x].amountText.text = GameManager.instance.numberOfItems[x].ToString();
+            }
+            else
+            {
+                itemButtons[x].buttonImage.gameObject.SetActive(false);
+                itemButtons[x].amountText.text = "";
+            }
+        }
+    }
+
+    public void SelectItem(Item newItem)
+    {
+        activeItem = newItem;
+
+        useButtonText.text = (activeItem.isWeapon || activeItem.isArmor) ? "Equip" : "Use";
+
+        itemName.text = activeItem.itemName;
+        itemDescription.text = activeItem.description;
     }
 }
