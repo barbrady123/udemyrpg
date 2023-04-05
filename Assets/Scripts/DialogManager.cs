@@ -37,6 +37,8 @@ public class DialogManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        firstCharStats = GameManager.instance.playerStats[0];
     }
 
     // Update is called once per frame
@@ -94,7 +96,7 @@ public class DialogManager : MonoBehaviour
         var parts = line.Split(':');
 
         bool showName = true;
-        
+
         if (parts.Length > 1)
         {
             showName = parts[0] != Global.Labels.NoChat;

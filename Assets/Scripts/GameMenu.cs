@@ -202,7 +202,7 @@ public class GameMenu : MonoBehaviour
         if (activeItem == null)
             return;
 
-        if (GameManager.instance.RemoveItem(activeItem.itemName, 1))
+        if (GameManager.instance.RemoveItem(activeItem.itemName))
         {
             activeItem = null;
         }
@@ -212,6 +212,9 @@ public class GameMenu : MonoBehaviour
 
     public void OpenItemCharChoice()
     {
+        if (activeItem == null)
+            return;
+
         itemCharChoiceMenu.SetActive(true);
 
         for (int x = 0; x < itemCharChoiceNames.Length; x++)
@@ -224,5 +227,10 @@ public class GameMenu : MonoBehaviour
     public void CloseItemCharChoice()
     {
         itemCharChoiceMenu.SetActive(false);
+    }
+
+    public void UseItem(int selectedChar)
+    {
+        activeItem?.Use(selectedChar);
     }
 }

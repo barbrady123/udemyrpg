@@ -35,12 +35,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PlayerController.instance.canMove = !(gameMenuOpen || dialogActive || fadingBetweenAreas);
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            AddItem("Iron Armor", 3);
-            RemoveItem("Health Potion", 1);
-        }
     }
 
     public bool CanOpenMenu() => !(dialogActive || fadingBetweenAreas);
@@ -79,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemToAdd, int quantity)
+    public void AddItem(string itemToAdd, int quantity = 1)
     {
         SortItems();
 
@@ -118,7 +112,7 @@ public class GameManager : MonoBehaviour
     /// Returns true if the entire stack was removed...
     /// </summary>
     /// <returns></returns>
-    public bool RemoveItem(string itemToRemove, int quantity)
+    public bool RemoveItem(string itemToRemove, int quantity = 1)
     {
         bool stackRemoved = false;
 

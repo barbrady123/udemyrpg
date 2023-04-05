@@ -81,4 +81,48 @@ public class CharStats : MonoBehaviour
             }
         }
     }
+
+    public int AddHP(int amount)
+    {
+        currentHP = Math.Clamp(currentHP + amount, 0, maxHP);
+        return currentHP;
+    }
+
+    public int AddMP(int amount)
+    {
+        currentMP = Math.Clamp(currentMP + amount, 0, maxMP);
+        return currentMP;
+    }
+
+    public string EquipWeapon(string weapon)
+    {
+        string current = equippedWeapon;
+        if (!String.IsNullOrWhiteSpace(current))
+        {
+            var currentDetails = GameManager.instance.GetItemDetails(current);
+            weaponPower = Math.Max(weaponPower - currentDetails.weaponStrength, 0);
+        }
+
+        equippedWeapon = weapon;
+        var newDetails = GameManager.instance.GetItemDetails(weapon);
+        weaponPower += newDetails.weaponStrength;
+
+        return current;
+    }
+
+    public string EquipArmor(string armor)
+    {
+        string current = equippedArmor;
+        if (!String.IsNullOrWhiteSpace(current))
+        {
+            var currentDetails = GameManager.instance.GetItemDetails(current);
+            armorPower = Math.Max(armorPower - currentDetails.armorStrength, 0);
+        }
+
+        equippedArmor = armor;
+        var newDetails = GameManager.instance.GetItemDetails(armor);
+        armorPower += newDetails.armorStrength;
+
+        return current;
+    }
 }

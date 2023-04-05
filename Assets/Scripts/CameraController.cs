@@ -15,6 +15,8 @@ public class CameraController : MonoBehaviour
     private float halfHeight;
     private float halfWidth;
 
+    public bool isLocked = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,9 @@ public class CameraController : MonoBehaviour
     // LateUpdate is called once per frame after Update
     void LateUpdate()
     {
+        if (isLocked)
+            return;
+
 		transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
 
         // keep the camera inside the bounds
