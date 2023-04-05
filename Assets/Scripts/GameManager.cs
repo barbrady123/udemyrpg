@@ -114,8 +114,14 @@ public class GameManager : MonoBehaviour
         GameMenu.instance.ShowItems();
     }
 
-    public void RemoveItem(string itemToRemove, int quantity)
+    /// <summary>
+    /// Returns true if the entire stack was removed...
+    /// </summary>
+    /// <returns></returns>
+    public bool RemoveItem(string itemToRemove, int quantity)
     {
+        bool stackRemoved = false;
+
         for (int x = 0; x < itemsHeld.Length; x++)
         {
             if (itemsHeld[x] == itemToRemove)
@@ -124,13 +130,15 @@ public class GameManager : MonoBehaviour
                 if (numberOfItems[x] == 0)
                 {
                     itemsHeld[x] = "";
+                    stackRemoved = true;
                 }
 
                 GameMenu.instance.ShowItems();
-                return;
+                return stackRemoved;
             }
         }
 
         Debug.Log($"Unable to remove item '{itemToRemove}', not found in inventory");
+        return false;
     }
 }

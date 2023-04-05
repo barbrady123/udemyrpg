@@ -39,6 +39,9 @@ public class GameMenu : MonoBehaviour
     public Text itemDescription;
     public Text useButtonText;
 
+    public GameObject itemCharChoiceMenu;
+    public Text[] itemCharChoiceNames;
+
     public static GameMenu instance;
 
     // Start is called before the first frame update
@@ -103,6 +106,8 @@ public class GameMenu : MonoBehaviour
         {
             windows[x].SetActive(x == windowNumber ? !windows[x].activeInHierarchy : false);
         }
+
+        CloseItemCharChoice();
     }
 
     public void OpenMenu()
@@ -117,6 +122,8 @@ public class GameMenu : MonoBehaviour
         ToggleWindow();
         theMenu.SetActive(false);
         GameManager.instance.gameMenuOpen = false;
+
+        CloseItemCharChoice();
     }
 
     public void OpenStatus()
@@ -168,15 +175,54 @@ public class GameMenu : MonoBehaviour
                 itemButtons[x].amountText.text = "";
             }
         }
+
+        SelectItem(activeItem);
     }
 
-    public void SelectItem(Item newItem)
+    public void SelectItem(Item newItem = null)
     {
         activeItem = newItem;
 
-        useButtonText.text = (activeItem.isWeapon || activeItem.isArmor) ? "Equip" : "Use";
+        if (newItem != null)
+        {
+            useButtonText.text = (activeItem.isWeapon || activeItem.isArmor) ? "Equip" : "Use";
 
-        itemName.text = activeItem.itemName;
-        itemDescription.text = activeItem.description;
+            itemName.text = activeItem.itemName;
+            itemDescription.text = activeItem.description;
+        }
+        else
+        {
+            itemName.text = null;
+            itemDescription.text = null;
+        }
+    }
+
+    public void DiscardActiveItem()
+    {
+        if (activeItem == null)
+            return;
+
+        if (GameManager.instance.RemoveItem(activeItem.itemName, 1))
+        {
+            activeItem = null;
+        }
+
+        SelectItem(activeItem);
+    }
+
+    public void OpenItemCharChoice()
+    {
+        itemCharChoiceMenu.SetActive(true);
+
+        for (int x = 0; x < itemCharChoiceNames.Length; x++)
+        {
+            itemCharChoiceNames[x].text = GameManager.instance.playerStats[x].charName;
+            itemCharChoiceNames[x].transform.parent.gameObject.SetActive(GameManager.instance.playerStats[x].gameObject.activeInHierarchy);
+        }
+    }
+
+    public void CloseItemCharChoice()
+    {
+        itemCharChoiceMenu.SetActive(false);
     }
 }
