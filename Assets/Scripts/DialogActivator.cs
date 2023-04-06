@@ -10,6 +10,10 @@ public class DialogActivator : MonoBehaviour
 
     private NPCController activatingNPC;
 
+    public string questToMark = null;
+
+    public bool markQuestComplete;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +25,7 @@ public class DialogActivator : MonoBehaviour
     {
         if (canActivate && Input.GetButtonDown(Global.Inputs.Fire1) && !DialogManager.instance.dialogBox.activeInHierarchy)
         {
-            DialogManager.instance.ShowDialog(lines, activatingNPC?.npcName);
+            DialogManager.instance.ShowDialog(lines, activatingNPC?.npcName, questToMark, markQuestComplete);
         }
     }
 
