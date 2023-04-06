@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +24,27 @@ public class ItemButton : MonoBehaviour
 
     public void Press()
     {
-        if (GameManager.instance.itemsHeld[buttonValue] != "")
+        switch (GetComponentInParent<ItemButtonContainer>().buttonType)
         {
-            GameMenu.instance.SelectItem(
-                GameManager.instance.GetItemDetails(
-                    GameManager.instance.itemsHeld[buttonValue]));
+            case ItemButtonContainerType.PlayerItems:
+                if (GameManager.instance.itemsHeld[buttonValue] != "")
+                {
+                    GameMenu.instance.SelectItem(
+                        GameManager.instance.GetItemDetails(
+                            GameManager.instance.itemsHeld[buttonValue]));
+                }
+                break;
+            case ItemButtonContainerType.ShopBuyItems:
+                Shop.instance.SelectBuyItem(
+                    GameManager.instance.GetItemDetails(
+                        Shop.instance.itemsForSale[buttonValue]));
+                break;
+            case ItemButtonContainerType.ShopSellItems:
+                Shop.instance.SelectSellItem(
+                    GameManager.instance.GetItemDetails(
+                        GameManager.instance.itemsHeld[buttonValue]));
+                break;
         }
+
     }
 }

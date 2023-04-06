@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        GameMenu.instance.ShowItems();
+        SortItems();
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
                     stackRemoved = true;
                 }
 
-                GameMenu.instance.ShowItems();
+                SortItems();
                 return stackRemoved;
             }
         }

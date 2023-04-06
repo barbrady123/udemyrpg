@@ -21970,14 +21970,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3419089112726024334, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: charName
-      value: Disabled
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406347324916429, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: charName
-      value: Kyryn
-      objectReference: {fileID: 0}
     - target: {fileID: 5698406348154220888, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -22022,105 +22014,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.size
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[4]
-      value: Health Potion
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[7]
-      value: Iron Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[22]
-      value: Leather Armor
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[28]
-      value: Mana Potion
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[34]
-      value: Wooden Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: itemsHeld.Array.data[35]
-      value: Iron Armor
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.size
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[4]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[7]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[22]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[28]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[34]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: numberOfItems.Array.data[35]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 7727336537664515075, guid: 5d8b00cdd9e9ced4bb486e1e256a4978, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 5815793451479722010, guid: 140092854e95f474daa89853112faac9, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[2]
-      value: 
-      objectReference: {fileID: 7264790403418551978, guid: b094ae1a76dfe9b449d8b1334b26fab2, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 5342183134248102363, guid: 50f00bd14a9326d429f017d345c08fd2, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[4]
-      value: 
-      objectReference: {fileID: 7580133700526843913, guid: 98bacf4bdc5f6114c999374e49af2693, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[5]
-      value: 
-      objectReference: {fileID: 2677580797176101670, guid: f74494ca4e972704c995d3439055112e, type: 3}
-    - target: {fileID: 5698406348154220889, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: referenceItems.Array.data[6]
-      value: 
-      objectReference: {fileID: 2677580797176101670, guid: f74494ca4e972704c995d3439055112e, type: 3}
     - target: {fileID: 5698406348154220890, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
       propertyPath: m_Name
       value: Game Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7632134865801278866, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: charName
-      value: Woody
-      objectReference: {fileID: 0}
-    - target: {fileID: 7632134865801278866, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
-      propertyPath: currentXP
-      value: 2500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999c0657c02fdc44db0bad23bd22ce1f, type: 3}
