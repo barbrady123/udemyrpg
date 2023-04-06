@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public int GetQuestIndex(string name)
@@ -63,6 +63,23 @@ public class QuestManager : MonoBehaviour
         foreach (var activator in FindObjectsOfType<QuestObjectActivator>())
         {
             activator.CheckCompletion();
+        }
+    }
+
+    // DON'T USE PlayerPrefs FOR THIS....this is dumb...
+    public void SaveQuestData()
+    {
+        foreach ((string questName, int x) in questMarkerNames.WithIndex())
+        {
+            PlayerPrefs.SetInt($"QuestMarker_{questName}", questMarkersComplete[x] ? 1 : 0);
+        }
+    }
+
+    public void LoadQuestData()
+    {
+        foreach ((string questName, int x) in questMarkerNames.WithIndex())
+        {
+            questMarkersComplete[x] = (PlayerPrefs.GetInt($"QuestMarker_{questName}", 0) == 1);
         }
     }
 }

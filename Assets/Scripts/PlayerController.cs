@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
 	private static readonly int idLastMoveX = Animator.StringToHash("lastMoveX");
 	private static readonly int idLastMoveY = Animator.StringToHash("lastMoveY");
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		if (instance == null)
 		{
@@ -41,6 +41,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (GameManager.instance.loadingScene)
+		{
+			transform.position = GameManager.instance.saveData.Position;
+			GameManager.instance.loadingScene = false;
+		}
+
 		float rawX = Input.GetAxisRaw(Global.Inputs.AxisHorizontal);
 		float rawY = Input.GetAxisRaw(Global.Inputs.AxisVertical);
 

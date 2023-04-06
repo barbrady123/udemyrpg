@@ -227,4 +227,9 @@ public class GameMenu : MonoBehaviour
     {
         activeItem?.Use(selectedChar);
     }
+
+    public void SaveGame()
+    {
+        GameManager.instance.SaveData();
+    }
 }
