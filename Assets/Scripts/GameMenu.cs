@@ -43,20 +43,12 @@ public class GameMenu : MonoBehaviour
     public Text[] itemCharChoiceNames;
 
     public static GameMenu instance;
+    public Text goldText;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
     // Update is called once per frame
@@ -96,6 +88,8 @@ public class GameMenu : MonoBehaviour
                 charImage[x].sprite = playerStats[x].charImage;
             }
         }
+
+        goldText.text = GameManager.instance.currentGold.ToString();
     }
 
     public void ToggleWindow(int windowNumber = -1)
