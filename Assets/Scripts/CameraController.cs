@@ -37,12 +37,6 @@ public class CameraController : MonoBehaviour
     // LateUpdate is called once per frame after Update
     void LateUpdate()
     {
-        if (!musicStarted)
-        {
-            musicStarted = true;
-            AudioManager.instance.PlayBGM(musicToPlay);
-        }
-
         if (isLocked)
             return;
 
@@ -55,7 +49,12 @@ public class CameraController : MonoBehaviour
              transform.position.z);
     }
 
-    private void Update()
+    void Update()
     {
+        if (!musicStarted)
+        {
+            musicStarted = true;
+            AudioManager.instance.PlayBGM(musicToPlay);
+        }
     }
 }
