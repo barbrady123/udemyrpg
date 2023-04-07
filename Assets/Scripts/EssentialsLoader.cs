@@ -7,6 +7,7 @@ public class EssentialsLoader : MonoBehaviour
     public GameObject UIScreen;
     public GameObject player;
     public GameObject gameManager;
+    public GameObject audioManager;
 
     // Awake is called when the script is first loaded (prior to Start)
     private void Awake()
@@ -24,6 +25,11 @@ public class EssentialsLoader : MonoBehaviour
         if (UIFade.instance == null)
         {
             Instantiate(UIScreen);
+        }
+
+        if (AudioManager.instance == null)
+        {
+            Instantiate(audioManager);
         }
     }
 

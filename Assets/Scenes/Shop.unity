@@ -2185,10 +2185,6 @@ PrefabInstance:
       propertyPath: theMap
       value: 
       objectReference: {fileID: 1719994052}
-    - target: {fileID: 3845844102502265405, guid: 98622d0288df36c42af4e8c8ae77479f, type: 3}
-      propertyPath: isLocked
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98622d0288df36c42af4e8c8ae77479f, type: 3}
 --- !u!114 &1070304771 stripped

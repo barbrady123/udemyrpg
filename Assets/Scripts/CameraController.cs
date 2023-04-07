@@ -17,6 +17,9 @@ public class CameraController : MonoBehaviour
 
     public bool isLocked = false;
 
+    public int musicToPlay;
+    private bool musicStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,12 @@ public class CameraController : MonoBehaviour
     // LateUpdate is called once per frame after Update
     void LateUpdate()
     {
+        if (!musicStarted)
+        {
+            musicStarted = true;
+            AudioManager.instance.PlayBGM(musicToPlay);
+        }
+
         if (isLocked)
             return;
 
@@ -44,5 +53,9 @@ public class CameraController : MonoBehaviour
              Mathf.Clamp(transform.position.x, bottomLeftLimit.x, topRightLimit.x),
              Mathf.Clamp(transform.position.y, bottomLeftLimit.y, topRightLimit.y),
              transform.position.z);
+    }
+
+    private void Update()
+    {
     }
 }

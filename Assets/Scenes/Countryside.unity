@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: theMap
       value: 
       objectReference: {fileID: 1536216208}
+    - target: {fileID: 3845844102502265405, guid: 98622d0288df36c42af4e8c8ae77479f, type: 3}
+      propertyPath: musicToPlay
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98622d0288df36c42af4e8c8ae77479f, type: 3}
 --- !u!1001 &695874834
@@ -9510,6 +9514,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5968675800536748892, guid: fbd6d65a9bac286429875b18efe7c52e, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 6499676429098367025, guid: 68f19c6563d11f846bcd56a44a102bcd, type: 3}
     - target: {fileID: 7160329571756802706, guid: fbd6d65a9bac286429875b18efe7c52e, type: 3}
       propertyPath: m_RootOrder
       value: 3
