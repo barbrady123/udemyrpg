@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour
     public int currentGold;
 
 
-    private string SaveGamePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UdemyRPG");
+    public static readonly string SaveGamePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UdemyRPG");
+
+    public static readonly string SaveGameLoc = Path.Combine(SaveGamePath, "gamedata.json");
 
     public GameDto saveData;
     public bool loadingScene;
@@ -40,10 +42,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.P))
             {
-                LoadData();
+                LoadGame();
             }
         }
     }
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
             string data = JsonConvert.SerializeObject(dto, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
             var dir = Directory.CreateDirectory(SaveGamePath);
-            File.WriteAllText(Path.Combine(SaveGamePath, "gamedata.json"), data);
+            File.WriteAllText(SaveGameLoc, data);
         }
         catch(Exception ex)
         {
@@ -184,11 +184,11 @@ public class GameManager : MonoBehaviour
         };
     }
 
-    public void LoadData()
+    public void LoadGame()
     {
         try
         {
-            string data = File.ReadAllText(Path.Combine(SaveGamePath, "gamedata.json"));
+            string data = File.ReadAllText(SaveGameLoc);
             var dto = JsonConvert.DeserializeObject<GameDto>(data);
             saveData = dto;
 
@@ -200,19 +200,5 @@ public class GameManager : MonoBehaviour
             Debug.LogException(
                 new Exception("Failed to load game data.", ex));
         };
-    }
-
-    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        /*
-        if (GameManager.TempSaveData != null)
-        {
-            // PlayerController.instance.transform.position = GameManager.TempSaveData.Position;
-            PlayerController.instance.gameObject.transform.position = GameManager.TempSaveData.Position;
-
-        }
-
-        GameManager.TempSaveData = null;
-        */
     }
 }

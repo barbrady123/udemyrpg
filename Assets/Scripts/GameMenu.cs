@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
@@ -95,6 +96,7 @@ public class GameMenu : MonoBehaviour
     public void ToggleWindow(int windowNumber = -1)
     {
         UpdateMainStats();
+        AudioManager.instance.PlaySFX(4);
 
         for (int x = 0; x < windows.Length; x++)
         {
@@ -106,6 +108,7 @@ public class GameMenu : MonoBehaviour
 
     public void OpenMenu()
     {
+        AudioManager.instance.PlaySFX(5);
         UpdateMainStats();
         theMenu.SetActive(true);
         GameManager.instance.gameMenuOpen = true;
@@ -113,6 +116,7 @@ public class GameMenu : MonoBehaviour
 
     public void CloseMenu()
     {
+        AudioManager.instance.PlaySFX(4);
         ToggleWindow();
         theMenu.SetActive(false);
         GameManager.instance.gameMenuOpen = false;
@@ -231,5 +235,15 @@ public class GameMenu : MonoBehaviour
     public void SaveGame()
     {
         GameManager.instance.SaveData();
+    }
+
+    public void QuitGame()
+    {
+        SaveGame();
+        SceneManager.LoadScene("MainMenu");
+        Destroy(GameManager.instance.gameObject);
+        Destroy(PlayerController.instance.gameObject);
+        Destroy(AudioManager.instance.gameObject);
+        Destroy(gameObject);
     }
 }

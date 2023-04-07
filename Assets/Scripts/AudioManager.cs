@@ -37,6 +37,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(int musicToPlay)
     {
+        if (bgm[musicToPlay].isPlaying)
+            return;
+
         StopMusic();
         bgm[musicToPlay].Play();
     }

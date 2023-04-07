@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,7 @@ public class Shop : MonoBehaviour
     public GameObject buyMenu;
     public GameObject sellMenu;
 
-    public Text goldText;   
+    public Text goldText;
 
     public string[] itemsForSale;
 
@@ -39,7 +38,7 @@ public class Shop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OpenShop()
@@ -87,7 +86,7 @@ public class Shop : MonoBehaviour
         buyMenu.SetActive(false);
 
         SelectSellItem();
-        
+
         RefreshSellMenu();
     }
 
