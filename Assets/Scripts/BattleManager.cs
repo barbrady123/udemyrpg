@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject uiButtonsHolder;
 
+    public BattleMove[] movesList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -204,6 +206,16 @@ public class BattleManager : MonoBehaviour
         var playerIndices = activeBattlers.AllPlayers().WithIndex().NotDead().Select(x => x.index).ToArray();
         int indexToAttack = playerIndices[Random.Range(0, playerIndices.Length)];
 
-        activeBattlers[indexToAttack].currentHP -= activeBattlers[currentTurn].weaponPower * 5;
+        int moveIndex = Random.Range(0, activeBattlers[currentTurn].movesAvailable.Length);
+
+        var move = movesList.FirstOrDefault(x => x.moveName == activeBattlers[currentTurn].movesAvailable[moveIndex]);
+        if (move == null)
+        {
+            Debug.LogError($"Unknown move encountered '{activeBattlers[currentTurn].movesAvailable[moveIndex]}'");
+            return;
+        }
+
+        Instantiate(move.theEffect, activeBattlers[indexToAttack].transform.position, activeBattlers[indexToAttack].transform.rotation);
+        activeBattlers[indexToAttack].currentHP -= move.movePower;
     }
 }
