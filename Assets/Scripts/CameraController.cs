@@ -20,9 +20,13 @@ public class CameraController : MonoBehaviour
     public int musicToPlay;
     private bool musicStarted = false;
 
+    public static CameraController instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
 		target = PlayerController.instance.transform;
 
         halfHeight = Camera.main.orthographicSize;
@@ -54,7 +58,12 @@ public class CameraController : MonoBehaviour
         if (!musicStarted)
         {
             musicStarted = true;
-            AudioManager.instance.PlayBGM(musicToPlay);
+            PlayMusic();
         }
+    }
+
+    public void PlayMusic()
+    {
+        AudioManager.instance.PlayBGM(musicToPlay);
     }
 }

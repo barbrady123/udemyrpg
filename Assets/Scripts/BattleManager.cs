@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
@@ -28,12 +31,16 @@ public class BattleManager : MonoBehaviour
 
     public BattleMove[] movesList;
 
+    public GameObject enemyAttackEffect;
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public BattleChar ActiveBattler => (battleActive && (currentTurn < (activeBattlers?.Count ?? 0))) ? activeBattlers[currentTurn] : null;
 
     // Update is called once per frame
     void Update()
@@ -48,9 +55,9 @@ public class BattleManager : MonoBehaviour
 
         if (turnWaiting)
         {
-            uiButtonsHolder.SetActive(activeBattlers[currentTurn].IsPlayer);
+            uiButtonsHolder.SetActive(ActiveBattler.IsPlayer);
 
-            if (activeBattlers[currentTurn].IsPlayer)
+            if (ActiveBattler.IsPlayer)
             {
                 if (Input.GetKeyDown(KeyCode.P))
                 {
@@ -65,6 +72,27 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void ResetActiveBattlers()
+    {
+        activeBattlers = new List<BattleChar>();
+        
+        foreach (var pos in playerPositions)
+        {
+            while (pos.childCount > 0)
+            {
+                DestroyImmediate(pos.GetChild(0).gameObject);
+            }
+        }
+
+        foreach (var pos in enemyPositions)
+        {
+            while (pos.childCount > 0)
+            {
+                DestroyImmediate(pos.GetChild(0).gameObject);
+            }
+        }
+    }
+
     public void BattleStart(string[] enemiesToSpawn)
     {
         if (battleActive)
@@ -72,7 +100,7 @@ public class BattleManager : MonoBehaviour
 
         battleActive = true;
         GameManager.instance.battleActive = true;
-        activeBattlers = new List<BattleChar>();
+        ResetActiveBattlers();
 
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, transform.position.z);
         battleScene.SetActive(true);
@@ -84,6 +112,7 @@ public class BattleManager : MonoBehaviour
 
         foreach ((var playerPos, int index) in playerPositions.WithIndex())
         {
+
             if (!GameManager.instance.playerStats[index].gameObject.activeInHierarchy)
                 continue;
 
@@ -185,11 +214,18 @@ public class BattleManager : MonoBehaviour
         }
 
         if (allDead)
-        {
-            battleScene.SetActive(false);
+        {   
             battleActive = false;
-            GameManager.instance.battleActive = false;
+            StartCoroutine(ExitBattleCo());
         }
+    }
+
+    public IEnumerator ExitBattleCo()
+    {
+        yield return new WaitForSeconds(1);
+        battleScene.SetActive(false);
+        GameManager.instance.battleActive = false;
+        CameraController.instance.PlayMusic();
     }
 
     public IEnumerator EnemyMoveCo()
@@ -216,6 +252,16 @@ public class BattleManager : MonoBehaviour
         }
 
         Instantiate(move.theEffect, activeBattlers[indexToAttack].transform.position, activeBattlers[indexToAttack].transform.rotation);
-        activeBattlers[indexToAttack].currentHP -= move.movePower;
+
+        Instantiate(enemyAttackEffect, ActiveBattler.transform.position, ActiveBattler.transform.rotation);
+
+        DealDamage(indexToAttack, move);
+    }
+
+    public void DealDamage(int target, BattleMove move)
+    {
+        int dmg = Convert.ToInt32((ActiveBattler.TotalAttackPower / Math.Max(1, activeBattlers[target].TotalDefensePower)) * move.movePower * Random.Range(0.9f, 1.1f));
+        activeBattlers[target].currentHP -= dmg;
+        Debug.Log($"Attacker ({ActiveBattler.charName}) hit {activeBattlers[target].charName} with {move.moveName} for {dmg} damage.");
     }
 }
