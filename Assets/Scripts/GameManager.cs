@@ -51,18 +51,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PlayerController.instance.canMove = !(gameMenuOpen || dialogActive || fadingBetweenAreas || shopActive || battleActive);
-
-        if (PlayerController.instance.canMove)
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                SaveData();
-            }
-            else if (Input.GetKeyDown(KeyCode.P))
-            {
-                LoadGame();
-            }
-        }
     }
 
     public bool CanOpenMenu() => !(dialogActive || fadingBetweenAreas || shopActive || battleActive);

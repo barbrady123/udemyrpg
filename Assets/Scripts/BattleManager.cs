@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -18,7 +19,7 @@ public class BattleManager : MonoBehaviour
     public BattleChar[] playerPrefabs;
     public BattleChar[] enemyPrefabs;
 
-    public List<BattleChar> activeBattlers = new List<BattleChar>();
+    public List<BattleChar> activeBattlers;
 
     public int currentTurn;
     public bool turnWaiting;
@@ -47,9 +48,17 @@ public class BattleManager : MonoBehaviour
         {
             uiButtonsHolder.SetActive(activeBattlers[currentTurn].IsPlayer);
 
-            if (!activeBattlers[currentTurn].IsPlayer)
+            if (activeBattlers[currentTurn].IsPlayer)
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    NextTurn();
+                }
+            }
+            else
             {
                 // enemy attack...
+                StartCoroutine(EnemyMoveCo());
             }
         }
     }
@@ -61,6 +70,7 @@ public class BattleManager : MonoBehaviour
 
         battleActive = true;
         GameManager.instance.battleActive = true;
+        activeBattlers = new List<BattleChar>();
 
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, transform.position.z);
         battleScene.SetActive(true);
@@ -68,7 +78,7 @@ public class BattleManager : MonoBehaviour
         AudioManager.instance.PlayBGM(6);
 
         turnWaiting = true;
-        currentTurn = Random.Range(0, activeBattlers.Count);
+        currentTurn = 0;    // Random.Range(0, activeBattlers.Count);
 
         foreach ((var playerPos, int index) in playerPositions.WithIndex())
         {
@@ -86,6 +96,7 @@ public class BattleManager : MonoBehaviour
             var newPlayer = Instantiate(prefab, playerPos.position, playerPos.rotation);
             newPlayer.transform.parent = playerPos;
 
+            newPlayer.IsPlayer = true;
             newPlayer.charName = stats.charName;
             newPlayer.currentHP = stats.currentHP;
             newPlayer.maxHP = stats.maxHP;
@@ -114,6 +125,7 @@ public class BattleManager : MonoBehaviour
             var newEnemy = Instantiate(prefab, enemyPos.position, enemyPos.rotation);
             newEnemy.transform.parent = enemyPos;
 
+            newEnemy.IsPlayer = false;
             newEnemy.charName = prefab.charName;
             newEnemy.currentHP = prefab.currentHP;
             newEnemy.maxHP = prefab.maxHP;
@@ -126,5 +138,72 @@ public class BattleManager : MonoBehaviour
 
             activeBattlers.Add(newEnemy);
         }
+    }
+
+    public void NextTurn()
+    {
+        currentTurn++;
+        if (currentTurn >= activeBattlers.Count)
+        {
+            currentTurn = 0;
+        }
+
+        turnWaiting = true;
+        UpdateBattle();
+    }
+
+    public void UpdateBattle()
+    {
+        var players = activeBattlers.AllPlayers().ToArray();
+        var enemies = activeBattlers.AllEnemies().ToArray();
+
+        foreach (var player in players.Where(x => (x.currentHP <= 0) && (!x.hasDied)))
+        {
+            // Do something to indicate death...
+            player.hasDied = true;
+        }
+
+        foreach (var enemy in enemies.Where(x => (x.currentHP <= 0) && (!x.hasDied)))
+        {
+            // Do something to indicate death...
+            enemy.hasDied = true;
+        }
+
+        bool allDead = false;
+
+        if (enemies.AllDead())
+        {
+            // Victory...
+            allDead = true;
+        }
+        else if (players.AllDead())
+        {
+            // Defeat...
+            allDead = true;
+        }
+
+        if (allDead)
+        {
+            battleScene.SetActive(false);
+            battleActive = false;
+            GameManager.instance.battleActive = false;
+        }
+    }
+
+    public IEnumerator EnemyMoveCo()
+    {
+        turnWaiting = false;
+        yield return new WaitForSeconds(1);
+        EnemyAttack();
+        yield return new WaitForSeconds(1);
+        NextTurn();
+    }
+
+    public void EnemyAttack()
+    {
+        var playerIndices = activeBattlers.AllPlayers().WithIndex().NotDead().Select(x => x.index).ToArray();
+        int indexToAttack = playerIndices[Random.Range(0, playerIndices.Length)];
+
+        activeBattlers[indexToAttack].currentHP -= activeBattlers[currentTurn].weaponPower * 5;
     }
 }
