@@ -33,6 +33,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject enemyAttackEffect;
 
+    public DamageNumber damageNumber;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -262,6 +264,7 @@ public class BattleManager : MonoBehaviour
     {
         int dmg = Convert.ToInt32((ActiveBattler.TotalAttackPower / Math.Max(1, activeBattlers[target].TotalDefensePower)) * move.movePower * Random.Range(0.9f, 1.1f));
         activeBattlers[target].currentHP -= dmg;
+        Instantiate(damageNumber, activeBattlers[target].transform.position, activeBattlers[target].transform.rotation).SetDamage(dmg);
         Debug.Log($"Attacker ({ActiveBattler.charName}) hit {activeBattlers[target].charName} with {move.moveName} for {dmg} damage.");
     }
 }
