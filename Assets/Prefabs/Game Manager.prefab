@@ -55,7 +55,7 @@ MonoBehaviour:
   currentMP: 30
   maxMP: 30
   strength: 15
-  defense: 12
+  defense: 20
   weaponPower: 0
   armorPower: 0
   equippedWeapon: 
@@ -243,7 +243,7 @@ MonoBehaviour:
   currentMP: 25
   maxMP: 25
   strength: 22
-  defense: 16
+  defense: 32
   weaponPower: 0
   armorPower: 0
   equippedWeapon: 

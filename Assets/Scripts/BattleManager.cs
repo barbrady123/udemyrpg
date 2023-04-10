@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
@@ -34,6 +35,10 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyAttackEffect;
 
     public DamageNumber damageNumber;
+
+    public Text[] playerNames;
+    public Text[] playerHP;
+    public Text[] playerMP;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +82,7 @@ public class BattleManager : MonoBehaviour
     private void ResetActiveBattlers()
     {
         activeBattlers = new List<BattleChar>();
-        
+
         foreach (var pos in playerPositions)
         {
             while (pos.childCount > 0)
@@ -136,6 +141,7 @@ public class BattleManager : MonoBehaviour
             newPlayer.currentMP = stats.currentMP;
             newPlayer.maxMP = stats.maxMP;
             newPlayer.strength = stats.strength;
+            newPlayer.defense = stats.defense;
             newPlayer.weaponPower = stats.weaponPower;
             newPlayer.armorPower = stats.armorPower;
             newPlayer.hasDied = newPlayer.currentHP <= 0;
@@ -165,12 +171,15 @@ public class BattleManager : MonoBehaviour
             newEnemy.currentMP = prefab.currentMP;
             newEnemy.maxMP = prefab.maxMP;
             newEnemy.strength = prefab.strength;
+            newEnemy.defense = prefab.defense;
             newEnemy.weaponPower = prefab.weaponPower;
             newEnemy.armorPower = prefab.armorPower;
             newEnemy.hasDied = prefab.currentHP <= 0;
 
             activeBattlers.Add(newEnemy);
         }
+
+        UpdateUIStats();
     }
 
     public void NextTurn()
@@ -202,6 +211,8 @@ public class BattleManager : MonoBehaviour
             enemy.hasDied = true;
         }
 
+        UpdateUIStats();
+
         bool allDead = false;
 
         if (enemies.AllDead())
@@ -216,9 +227,13 @@ public class BattleManager : MonoBehaviour
         }
 
         if (allDead)
-        {   
+        {
             battleActive = false;
             StartCoroutine(ExitBattleCo());
+        }
+        else while (ActiveBattler.hasDied)
+        {
+            NextTurn();
         }
     }
 
@@ -241,7 +256,7 @@ public class BattleManager : MonoBehaviour
 
     public void EnemyAttack()
     {
-        var playerIndices = activeBattlers.AllPlayers().WithIndex().NotDead().Select(x => x.index).ToArray();
+        var playerIndices = activeBattlers.WithIndex().AllPlayers().NotDead().Select(x => x.index).ToArray();
         int indexToAttack = playerIndices[Random.Range(0, playerIndices.Length)];
 
         int moveIndex = Random.Range(0, activeBattlers[currentTurn].movesAvailable.Length);
@@ -263,8 +278,49 @@ public class BattleManager : MonoBehaviour
     public void DealDamage(int target, BattleMove move)
     {
         int dmg = Convert.ToInt32((ActiveBattler.TotalAttackPower / Math.Max(1, activeBattlers[target].TotalDefensePower)) * move.movePower * Random.Range(0.9f, 1.1f));
-        activeBattlers[target].currentHP -= dmg;
+        activeBattlers[target].currentHP = Math.Max(activeBattlers[target].currentHP - dmg, 0);
         Instantiate(damageNumber, activeBattlers[target].transform.position, activeBattlers[target].transform.rotation).SetDamage(dmg);
         Debug.Log($"Attacker ({ActiveBattler.charName}) hit {activeBattlers[target].charName} with {move.moveName} for {dmg} damage.");
+        UpdateUIStats();
+    }
+
+    public void UpdateUIStats()
+    {
+        int maxIndex = 0;
+
+        foreach ((var player, int index) in activeBattlers.WithIndex().AllPlayers())
+        {
+            playerNames[index].gameObject.SetActive(true);
+            playerNames[index].text = player.charName;
+            playerHP[index].text = $"{player.currentHP} / {player.maxHP}";
+            playerMP[index].text = $"{player.currentMP} / {player.maxMP}";
+            maxIndex = index;
+        }
+
+        while (++maxIndex < playerNames.Length)
+        {
+            playerNames[maxIndex].gameObject.SetActive(false);
+        }
+    }
+
+    public void PlayerAttack(/*int target,*/ string moveName)
+    {
+        int target = activeBattlers.WithIndex().AllEnemies().NotDead().First().index;
+
+        var move = movesList.FirstOrDefault(x => x.moveName == moveName);
+        if (move == null)
+        {
+            Debug.LogError($"Unknown move encountered '{moveName}'");
+            return;
+        }
+
+        Instantiate(move.theEffect, activeBattlers[target].transform.position, activeBattlers[target].transform.rotation);
+
+        Instantiate(enemyAttackEffect, ActiveBattler.transform.position, ActiveBattler.transform.rotation);
+
+        DealDamage(target, move);
+
+        uiButtonsHolder.SetActive(false);
+        NextTurn();
     }
 }

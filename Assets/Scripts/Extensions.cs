@@ -24,9 +24,19 @@ public static class Extensions
         return source.Where(x => x.currentHP > 0);
     }
 
+    public static IEnumerable<(BattleChar item, int index)> AllPlayers(this IEnumerable<(BattleChar item, int index)> source)
+    {
+        return source.Where(x => x.item.IsPlayer);
+    }
+
     public static IEnumerable<BattleChar> AllPlayers(this IEnumerable<BattleChar> source)
     {
         return source.Where(x => x.IsPlayer);
+    }
+
+    public static IEnumerable<(BattleChar item, int index)> AllEnemies(this IEnumerable<(BattleChar item, int index)> source)
+    {
+        return source.Where(x => !x.item.IsPlayer);
     }
 
     public static IEnumerable<BattleChar> AllEnemies(this IEnumerable<BattleChar> source)

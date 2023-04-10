@@ -39,6 +39,7 @@ public class UIFade : MonoBehaviour
     {
         if (shouldFadeToBlack)
         {
+            fadeScreen.gameObject.SetActive(true);
             fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 1f, fadeSpeed * Time.deltaTime));
 
             if (fadeScreen.color.a == 1f)
@@ -49,10 +50,12 @@ public class UIFade : MonoBehaviour
 
         if (shouldFadeFromBlack)
         {
+            fadeScreen.gameObject.SetActive(true);
             fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime));
 
             if (fadeScreen.color.a == 0f)
             {
+                fadeScreen.gameObject.SetActive(false);
                 shouldFadeFromBlack = false;
             }
         }

@@ -20,18 +20,18 @@ public class BattleChar : MonoBehaviour
 
     public bool hasDied;
 
-    public int TotalAttackPower => this.strength + this.weaponPower;
-    public int TotalDefensePower => this.defense + this.armorPower;
+    public float TotalAttackPower => this.strength + this.weaponPower;
+    public float TotalDefensePower => this.defense + this.armorPower;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
