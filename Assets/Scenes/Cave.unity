@@ -12213,7 +12213,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1921236873}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2048239249}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: Flee
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1921236873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12768,6 +12780,7 @@ MonoBehaviour:
   - {fileID: 1256112555}
   - {fileID: 1459904375}
   notification: {fileID: 1887674720}
+  chanceToFlee: 35
 --- !u!95 &2048239250
 Animator:
   serializedVersion: 5

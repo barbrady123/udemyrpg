@@ -24,7 +24,7 @@ public class BattleMagicSelect : MonoBehaviour
         set
         {
             _spellCost = value;
-            // if (costText != null) costText.text = _spellCost.ToString();
+            if (costText != null) costText.text = _spellCost.ToString();
         }
     }
 

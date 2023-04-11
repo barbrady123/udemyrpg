@@ -48,6 +48,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleNotification notification;
 
+    public int chanceToFlee = 35;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -370,11 +372,26 @@ public class BattleManager : MonoBehaviour
                 button.item.gameObject.SetActive(true);
                 button.item.spellName = moveName;
                 button.item.spellCost = GetMove(moveName).moveCost;
+                button.item.costText.color = (button.item.spellCost > ActiveBattler.currentMP) ? Color.red : Global.Colors.Default;
             }
             else
             {
                 button.item.gameObject.SetActive(false);
             }
+        }
+    }
+
+    public void Flee()
+    {
+        if (Random.Range(0, 100) < chanceToFlee)
+        {
+            battleActive = false;
+            StartCoroutine(ExitBattleCo());
+        }
+        else
+        {
+            NextTurn();
+            notification.Activate("Escape failed!");
         }
     }
 }
