@@ -43,6 +43,11 @@ public class BattleManager : MonoBehaviour
     public GameObject targetMenu;
     public BattleTargetButton[] targetButtons;
 
+    public GameObject magicMenu;
+    public BattleMagicSelect[] magicButtons;
+
+    public BattleNotification notification;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +56,8 @@ public class BattleManager : MonoBehaviour
     }
 
     public BattleChar ActiveBattler => (battleActive && (currentTurn < (activeBattlers?.Count ?? 0))) ? activeBattlers[currentTurn] : null;
+
+    public BattleMove GetMove(string name) => movesList?.FirstOrDefault(x => x.moveName == name);
 
     // Update is called once per frame
     void Update()
@@ -332,7 +339,8 @@ public class BattleManager : MonoBehaviour
     public void OpenTargetMenu(string moveName)
     {
         targetMenu.SetActive(true);
-        
+        magicMenu.SetActive(false);
+
         int currentButton = 0;
         foreach (var enemy in activeBattlers.WithIndex().AllEnemies().NotDead())
         {
@@ -346,6 +354,27 @@ public class BattleManager : MonoBehaviour
         while (currentButton < targetButtons.Length)
         {
             targetButtons[currentButton++].gameObject.SetActive(false);
+        }
+    }
+
+    public void OpenMagicMenu()
+    {
+        magicMenu.SetActive(true);
+        targetMenu.SetActive(false);
+
+        foreach (var button in magicButtons.WithIndex())
+        {
+            if ((ActiveBattler?.movesAvailable.Length ?? 0) > button.index)
+            {
+                string moveName = ActiveBattler.movesAvailable[button.index];
+                button.item.gameObject.SetActive(true);
+                button.item.spellName = moveName;
+                button.item.spellCost = GetMove(moveName).moveCost;
+            }
+            else
+            {
+                button.item.gameObject.SetActive(false);
+            }
         }
     }
 }

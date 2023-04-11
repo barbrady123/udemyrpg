@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  movesAvailable: []
+  movesAvailable:
+  - Fire
+  - Ice
   charName: Kyryn
   currentHP: 0
   maxHP: 0

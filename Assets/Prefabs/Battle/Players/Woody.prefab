@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  movesAvailable: []
+  movesAvailable:
+  - Ice
+  - Plasma
   charName: Woody
   currentHP: 0
   maxHP: 0
