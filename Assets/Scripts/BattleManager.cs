@@ -212,10 +212,22 @@ public class BattleManager : MonoBehaviour
         var players = activeBattlers.AllPlayers().ToArray();
         var enemies = activeBattlers.AllEnemies().ToArray();
 
-        foreach (var player in players.Where(x => (x.currentHP <= 0) && (!x.hasDied)))
+        foreach (var player in players)
         {
-            // Do something to indicate death...
-            player.hasDied = true;
+            if (player.currentHP <= 0)
+            {
+                if (!player.hasDied)
+                {
+                    // Some indicator of death...
+                    player.hasDied = true;
+                }
+
+                player.theSprite.sprite = player.deadSprite;
+            }
+            else
+            {
+                player.theSprite.sprite = player.aliveSprite;
+            }
         }
 
         foreach (var enemy in enemies.Where(x => (x.currentHP <= 0) && (!x.hasDied)))

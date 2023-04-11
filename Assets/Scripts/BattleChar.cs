@@ -23,6 +23,10 @@ public class BattleChar : MonoBehaviour
     public float TotalAttackPower => this.strength + this.weaponPower;
     public float TotalDefensePower => this.defense + this.armorPower;
 
+    public SpriteRenderer theSprite;
+    public Sprite deadSprite;
+    public Sprite aliveSprite;
+
     // Start is called before the first frame update
     void Start()
     {
