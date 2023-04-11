@@ -372,7 +372,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2048239249}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: PlayerAttack
+        m_MethodName: OpenTargetMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4480,6 +4480,7 @@ GameObject:
   - component: {fileID: 303436189}
   - component: {fileID: 303436188}
   - component: {fileID: 303436187}
+  - component: {fileID: 303436190}
   m_Layer: 0
   m_Name: Target Button (3)
   m_TagString: Untagged
@@ -4551,7 +4552,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 303436188}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 303436190}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &303436188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4590,6 +4603,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303436185}
   m_CullTransparentMesh: 1
+--- !u!114 &303436190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303436185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 3
+  targetName: {fileID: 2016939446}
 --- !u!1 &326628754
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,6 +7303,7 @@ GameObject:
   - component: {fileID: 430320693}
   - component: {fileID: 430320692}
   - component: {fileID: 430320691}
+  - component: {fileID: 430320694}
   m_Layer: 0
   m_Name: Target Button
   m_TagString: Untagged
@@ -7346,7 +7375,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 430320692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 430320694}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &430320692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7385,6 +7426,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430320689}
   m_CullTransparentMesh: 1
+--- !u!114 &430320694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430320689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 0
+  targetName: {fileID: 1729412149}
 --- !u!1 &536731820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7397,6 +7453,7 @@ GameObject:
   - component: {fileID: 536731824}
   - component: {fileID: 536731823}
   - component: {fileID: 536731822}
+  - component: {fileID: 536731825}
   m_Layer: 0
   m_Name: Target Button (4)
   m_TagString: Untagged
@@ -7468,7 +7525,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 536731823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 536731825}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &536731823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7507,6 +7576,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536731820}
   m_CullTransparentMesh: 1
+--- !u!114 &536731825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536731820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 4
+  targetName: {fileID: 1106411259}
 --- !u!1 &580176924
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,6 +8153,7 @@ GameObject:
   - component: {fileID: 706510072}
   - component: {fileID: 706510071}
   - component: {fileID: 706510070}
+  - component: {fileID: 706510073}
   m_Layer: 0
   m_Name: Target Button (1)
   m_TagString: Untagged
@@ -8140,7 +8225,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 706510071}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 706510073}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &706510071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8179,6 +8276,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706510068}
   m_CullTransparentMesh: 1
+--- !u!114 &706510073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706510068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 1
+  targetName: {fileID: 144977570}
 --- !u!1 &717102569
 GameObject:
   m_ObjectHideFlags: 0
@@ -8501,6 +8613,7 @@ GameObject:
   - component: {fileID: 810143924}
   - component: {fileID: 810143923}
   - component: {fileID: 810143922}
+  - component: {fileID: 810143925}
   m_Layer: 0
   m_Name: Target Button (2)
   m_TagString: Untagged
@@ -8572,7 +8685,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 810143923}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 810143925}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &810143923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8611,6 +8736,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810143920}
   m_CullTransparentMesh: 1
+--- !u!114 &810143925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810143920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 2
+  targetName: {fileID: 1078046870}
 --- !u!1 &814313009
 GameObject:
   m_ObjectHideFlags: 0
@@ -8711,8 +8851,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.7324829, y: -193.45}
-  m_SizeDelta: {x: -18.74, y: -941.79}
+  m_AnchoredPosition: {x: -0.7324219, y: -200.87}
+  m_SizeDelta: {x: -18.74, y: -937.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819908749
 MonoBehaviour:
@@ -8727,11 +8867,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
+    m_Left: 0
     m_Right: 0
-    m_Top: 20
+    m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 100}
@@ -8788,6 +8928,7 @@ GameObject:
   - component: {fileID: 859521025}
   - component: {fileID: 859521024}
   - component: {fileID: 859521023}
+  - component: {fileID: 859521026}
   m_Layer: 0
   m_Name: Target Button (5)
   m_TagString: Untagged
@@ -8859,7 +9000,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 859521024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 859521026}
+        m_TargetAssemblyTypeName: BattleTargetButton, Assembly-CSharp
+        m_MethodName: Press
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &859521024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8898,6 +9051,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859521021}
   m_CullTransparentMesh: 1
+--- !u!114 &859521026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859521021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fba5a406fee142b681924e7296f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: 
+  activeBattlerTarget: 5
+  targetName: {fileID: 1594299565}
 --- !u!1 &950097976
 GameObject:
   m_ObjectHideFlags: 0
@@ -9238,7 +9406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -527, y: -406}
+  m_AnchoredPosition: {x: -526.99994, y: -406}
   m_SizeDelta: {x: -1071.275, y: -826.8867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173738777
@@ -11366,6 +11534,14 @@ MonoBehaviour:
   - {fileID: 1481684480}
   - {fileID: 2105278299}
   - {fileID: 1457130125}
+  targetMenu: {fileID: 819908747}
+  targetButtons:
+  - {fileID: 430320694}
+  - {fileID: 706510073}
+  - {fileID: 810143925}
+  - {fileID: 303436190}
+  - {fileID: 536731825}
+  - {fileID: 859521026}
 --- !u!95 &2048239250
 Animator:
   serializedVersion: 5

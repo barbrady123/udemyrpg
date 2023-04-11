@@ -40,6 +40,9 @@ public class BattleManager : MonoBehaviour
     public Text[] playerHP;
     public Text[] playerMP;
 
+    public GameObject targetMenu;
+    public BattleTargetButton[] targetButtons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,6 +111,7 @@ public class BattleManager : MonoBehaviour
         battleActive = true;
         GameManager.instance.battleActive = true;
         ResetActiveBattlers();
+        targetMenu.SetActive(false);
 
         transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, transform.position.z);
         battleScene.SetActive(true);
@@ -273,6 +277,8 @@ public class BattleManager : MonoBehaviour
         Instantiate(enemyAttackEffect, ActiveBattler.transform.position, ActiveBattler.transform.rotation);
 
         DealDamage(indexToAttack, move);
+
+
     }
 
     public void DealDamage(int target, BattleMove move)
@@ -303,10 +309,8 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void PlayerAttack(/*int target,*/ string moveName)
+    public void PlayerAttack(int target, string moveName)
     {
-        int target = activeBattlers.WithIndex().AllEnemies().NotDead().First().index;
-
         var move = movesList.FirstOrDefault(x => x.moveName == moveName);
         if (move == null)
         {
@@ -315,12 +319,33 @@ public class BattleManager : MonoBehaviour
         }
 
         Instantiate(move.theEffect, activeBattlers[target].transform.position, activeBattlers[target].transform.rotation);
-
         Instantiate(enemyAttackEffect, ActiveBattler.transform.position, ActiveBattler.transform.rotation);
 
         DealDamage(target, move);
 
         uiButtonsHolder.SetActive(false);
+        targetMenu.SetActive(false);
+
         NextTurn();
+    }
+
+    public void OpenTargetMenu(string moveName)
+    {
+        targetMenu.SetActive(true);
+        
+        int currentButton = 0;
+        foreach (var enemy in activeBattlers.WithIndex().AllEnemies().NotDead())
+        {
+            targetButtons[currentButton].gameObject.SetActive(true);
+            targetButtons[currentButton].targetName.text = enemy.item.charName;
+            targetButtons[currentButton].activeBattlerTarget = enemy.index;
+            targetButtons[currentButton].moveName = moveName;
+            currentButton++;
+        }
+
+        while (currentButton < targetButtons.Length)
+        {
+            targetButtons[currentButton++].gameObject.SetActive(false);
+        }
     }
 }

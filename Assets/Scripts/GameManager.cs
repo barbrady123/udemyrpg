@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     public int currentGold;
 
-
     public static readonly string SaveGamePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UdemyRPG");
 
     public static readonly string SaveGameLoc = Path.Combine(SaveGamePath, "gamedata.json");
