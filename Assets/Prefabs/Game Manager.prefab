@@ -50,7 +50,7 @@ MonoBehaviour:
   xpToNextLevel: 
   maxLevel: 100
   baseXP: 1000
-  currentHP: 100
+  currentHP: 1
   maxHP: 100
   currentMP: 30
   maxMP: 30
@@ -118,6 +118,7 @@ MonoBehaviour:
   fadingBetweenAreas: 0
   shopActive: 0
   battleActive: 0
+  gameOver: 0
   itemsHeld:
   - 
   - 
@@ -238,7 +239,7 @@ MonoBehaviour:
   xpToNextLevel: 
   maxLevel: 100
   baseXP: 1000
-  currentHP: 150
+  currentHP: 1
   maxHP: 150
   currentMP: 25
   maxMP: 25

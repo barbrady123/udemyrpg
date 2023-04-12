@@ -237,10 +237,14 @@ public class GameMenu : MonoBehaviour
         GameManager.instance.SaveData();
     }
 
-    public void QuitGame()
+    public void QuitGame(bool saveGame = true)
     {
-        SaveGame();
-        SceneManager.LoadScene("MainMenu");
+        if (saveGame)
+        {
+            SaveGame();
+        }
+
+        SceneManager.LoadScene(Global.Scenes.MainMenu);
         Destroy(GameManager.instance.gameObject);
         Destroy(PlayerController.instance.gameObject);
         Destroy(AudioManager.instance.gameObject);

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool fadingBetweenAreas;
     public bool shopActive;
     public bool battleActive;
+    public bool gameOver;
 
     public string[] itemsHeld;
     public int[] numberOfItems;
@@ -49,10 +50,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerController.instance.canMove = !(gameMenuOpen || dialogActive || fadingBetweenAreas || shopActive || battleActive);
+        PlayerController.instance.canMove = !(gameMenuOpen || dialogActive || fadingBetweenAreas || shopActive || battleActive || gameOver);
     }
 
-    public bool CanOpenMenu() => !(dialogActive || fadingBetweenAreas || shopActive || battleActive);
+    public bool CanOpenMenu() => !(dialogActive || fadingBetweenAreas || shopActive || battleActive || gameOver);
 
     public Item GetItemDetails(string itemToGrab)
     {

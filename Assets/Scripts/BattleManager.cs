@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
@@ -286,7 +287,7 @@ public class BattleManager : MonoBehaviour
             player.currentHP = battler.currentHP;
             player.currentMP = battler.currentMP;
 
-            if (condition == CombatEndCondition.PlayerVictory)
+            if ((condition == CombatEndCondition.PlayerVictory) && (player.currentHP > 0))
             {
                 player.AddXP(totalXP / players.Length);
             }
@@ -294,9 +295,15 @@ public class BattleManager : MonoBehaviour
 
         UIFade.instance.FadeToBlack();
         yield return new WaitForSeconds(2);
-        UIFade.instance.FadeFromBlack();
         battleScene.SetActive(false);
         ResetActiveBattlers();
+
+        if (condition == CombatEndCondition.PlayerDeath)
+        {
+            SceneManager.LoadScene(Global.Scenes.GameOver);
+        }
+
+        UIFade.instance.FadeFromBlack();
         GameManager.instance.battleActive = false;
         CameraController.instance.PlayMusic();
     }
