@@ -93,6 +93,11 @@ public class BattleManager : MonoBehaviour
 
     private void ResetActiveBattlers()
     {
+        foreach (var battler in activeBattlers ?? Enumerable.Empty<BattleChar>())
+        {
+            Destroy(battler.gameObject);
+        }
+
         activeBattlers = new List<BattleChar>();
 
         foreach (var pos in playerPositions)
@@ -233,16 +238,19 @@ public class BattleManager : MonoBehaviour
         foreach (var enemy in enemies.Where(x => (x.currentHP <= 0) && (!x.hasDied)))
         {
             // Do something to indicate death...
+            enemy.EnemyFade();
             enemy.hasDied = true;
         }
 
         UpdateUIStats();
 
         bool allDead = false;
+        CombatEndCondition condition = CombatEndCondition.PlayerDeath;
 
         if (enemies.AllDead())
         {
             // Victory...
+            condition = CombatEndCondition.PlayerVictory;
             allDead = true;
         }
         else if (players.AllDead())
@@ -254,7 +262,7 @@ public class BattleManager : MonoBehaviour
         if (allDead)
         {
             battleActive = false;
-            StartCoroutine(ExitBattleCo());
+            StartCoroutine(ExitBattleCo(condition));
         }
         else while (ActiveBattler.hasDied)
         {
@@ -262,10 +270,33 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ExitBattleCo()
+    public IEnumerator ExitBattleCo(CombatEndCondition condition)
     {
-        yield return new WaitForSeconds(1);
+        uiButtonsHolder.SetActive(false);
+        targetMenu.SetActive(false);
+        magicMenu.SetActive(false);
+
+        var players = activeBattlers.AllPlayers().ToArray();
+        var enemies = activeBattlers.AllEnemies().ToArray();
+        int totalXP = enemies.Sum(x => 10 /*x.XPValue*/);
+
+        foreach (var battler in players)
+        {
+            var player = GameManager.instance.playerStats.Single(x => x.charName == battler.charName);
+            player.currentHP = battler.currentHP;
+            player.currentMP = battler.currentMP;
+
+            if (condition == CombatEndCondition.PlayerVictory)
+            {
+                player.AddXP(totalXP / players.Length);
+            }
+        }
+
+        UIFade.instance.FadeToBlack();
+        yield return new WaitForSeconds(2);
+        UIFade.instance.FadeFromBlack();
         battleScene.SetActive(false);
+        ResetActiveBattlers();
         GameManager.instance.battleActive = false;
         CameraController.instance.PlayMusic();
     }
@@ -398,7 +429,7 @@ public class BattleManager : MonoBehaviour
         if (Random.Range(0, 100) < chanceToFlee)
         {
             battleActive = false;
-            StartCoroutine(ExitBattleCo());
+            StartCoroutine(ExitBattleCo(CombatEndCondition.PlayerFlee));
         }
         else
         {
