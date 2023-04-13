@@ -280,6 +280,7 @@ public class BattleManager : MonoBehaviour
         var players = activeBattlers.AllPlayers().ToArray();
         var enemies = activeBattlers.AllEnemies().ToArray();
         int totalXP = enemies.Sum(x => 10 /*x.XPValue*/);
+        int xpPerPlayer = 0;
 
         foreach (var battler in players)
         {
@@ -287,9 +288,9 @@ public class BattleManager : MonoBehaviour
             player.currentHP = battler.currentHP;
             player.currentMP = battler.currentMP;
 
-            if ((condition == CombatEndCondition.PlayerVictory) && (player.currentHP > 0))
+            if (condition == CombatEndCondition.PlayerVictory)
             {
-                player.AddXP(totalXP / players.Length);
+                xpPerPlayer = totalXP / players.Length;
             }
         }
 
@@ -306,7 +307,38 @@ public class BattleManager : MonoBehaviour
         UIFade.instance.FadeFromBlack();
         GameManager.instance.battleActive = false;
         CameraController.instance.PlayMusic();
+
+        if (condition == CombatEndCondition.PlayerVictory)
+        {
+            BattleReward.instance.OpenRewardScreen(xpPerPlayer, GenerateLoot());
+        }
     }
+
+    private string[] GenerateLoot()
+    {
+        float currentChanceOfItem = 100.0f;
+        float additionalChanceModifier = 0.4f;
+
+        bool finishedLoot = false;
+        var loot = new List<string>();
+
+
+        while (!finishedLoot)
+        {
+            if (Random.Range(0, 100f) < currentChanceOfItem)
+            {
+                loot.Add(RandomItem());
+                currentChanceOfItem *= additionalChanceModifier;
+                continue;
+            }
+
+            finishedLoot = true;                
+        }
+
+        return loot.ToArray();
+    }
+
+    private string RandomItem() => GameManager.instance.referenceItems[Random.Range(0, GameManager.instance.referenceItems.Length)].name;
 
     public IEnumerator EnemyMoveCo()
     {

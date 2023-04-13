@@ -50,11 +50,11 @@ MonoBehaviour:
   xpToNextLevel: 
   maxLevel: 100
   baseXP: 1000
-  currentHP: 1
-  maxHP: 100
+  currentHP: 1000
+  maxHP: 1000
   currentMP: 30
   maxMP: 30
-  strength: 15
+  strength: 33
   defense: 20
   weaponPower: 0
   armorPower: 0
@@ -239,11 +239,11 @@ MonoBehaviour:
   xpToNextLevel: 
   maxLevel: 100
   baseXP: 1000
-  currentHP: 1
-  maxHP: 150
+  currentHP: 1150
+  maxHP: 1150
   currentMP: 25
   maxMP: 25
-  strength: 22
+  strength: 44
   defense: 32
   weaponPower: 0
   armorPower: 0

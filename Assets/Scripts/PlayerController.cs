@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class PlayerController : MonoBehaviour
 	private static readonly int idLastMoveX = Animator.StringToHash("lastMoveX");
 	private static readonly int idLastMoveY = Animator.StringToHash("lastMoveY");
 
+	public float currentBattleTickPos = 0.0f;
+	public float battleTick = 1.0f;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		DontDestroyOnLoad(gameObject);
+		currentBattleTickPos = 0.0f;
     }
 
     // Update is called once per frame
@@ -63,6 +68,22 @@ public class PlayerController : MonoBehaviour
 			{
 				myAnim.SetFloat(idLastMoveX, rawX);
 				myAnim.SetFloat(idLastMoveY, rawY);
+
+				if (currentBattleTickPos >= battleTick)
+				{
+					currentBattleTickPos = 0f;
+					if (Global.SceneBattleParams.TryGetValue(SceneManager.GetActiveScene().name, out var battleParams))
+					{
+						if (Random.Range(0, 1f) < battleParams.OddsOfCombat)
+						{
+							BattleManager.instance.BattleStart(battleParams.CombatMobs);
+						}
+					}
+				}
+				else
+				{
+					currentBattleTickPos += Time.deltaTime;
+				}
 			}
 		}
 		else

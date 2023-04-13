@@ -1,7 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Global
 {
+    public static readonly Dictionary<string, SceneBattleParam> SceneBattleParams = new Dictionary<string, SceneBattleParam>
+    {
+        { 
+            Global.Scenes.Cave,
+            new SceneBattleParam
+            {
+                SceneName = Global.Scenes.Cave,
+                OddsOfCombat = 0.05f,
+                CombatMobs = new[] { "Eyeball", "Skeleton", "Spider", "Spider" }
+            }
+        },
+        { 
+            Global.Scenes.Countryside,
+            new SceneBattleParam
+            {
+                SceneName = Global.Scenes.Countryside,
+                OddsOfCombat = 0.03f,
+                CombatMobs = new[] { "Spider" }
+            }
+        }
+    };
+
     public static class Colors
     {
         public static readonly Color PlayerName = new Color(0.4f, 0.4f, 0.9f);
@@ -48,11 +71,15 @@ public static class Global
 
     public static class Scenes
     {
+        public const string Cave = "Cave";
+
+        public const string Countryside = "Countryside";
+
+        public const string GameOver = "GameOver";
+
         public const string Init = "Init";
 
         public const string MainMenu = "MainMenu";
-
-        public const string GameOver = "GameOver";
     }
 
     public static class Music
