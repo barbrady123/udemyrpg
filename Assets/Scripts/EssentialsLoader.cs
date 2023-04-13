@@ -8,6 +8,7 @@ public class EssentialsLoader : MonoBehaviour
     public GameObject player;
     public GameObject gameManager;
     public GameObject audioManager;
+    public GameObject battleManager;
 
     // Awake is called when the script is first loaded (prior to Start)
     private void Awake()
@@ -30,6 +31,11 @@ public class EssentialsLoader : MonoBehaviour
         if (AudioManager.instance == null)
         {
             Instantiate(audioManager);
+        }
+
+        if (BattleManager.instance == null)
+        {
+            Instantiate(battleManager);
         }
     }
 

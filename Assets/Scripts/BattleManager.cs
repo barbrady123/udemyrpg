@@ -101,6 +101,7 @@ public class BattleManager : MonoBehaviour
 
         activeBattlers = new List<BattleChar>();
 
+        /*
         foreach (var pos in playerPositions)
         {
             while (pos.childCount > 0)
@@ -116,6 +117,7 @@ public class BattleManager : MonoBehaviour
                 DestroyImmediate(pos.GetChild(0).gameObject);
             }
         }
+        */
     }
 
     public void BattleStart(string[] enemiesToSpawn)
